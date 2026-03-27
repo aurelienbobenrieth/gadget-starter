@@ -13,11 +13,9 @@
   },
   "ignorePatterns": ["accessControl", "vite.config.mts"],
   "rules": {
-    // ── Nursery rules worth enabling ──
     "getter-return": "error",
     "no-undef": "error",
 
-    // ── Custom options ──
     "@typescript-eslint/ban-ts-comment": ["error", { "minimumDescriptionLength": 10 }],
     "@typescript-eslint/restrict-plus-operands": [
       "error",
@@ -42,7 +40,6 @@
     ],
     "@typescript-eslint/return-await": ["error", "error-handling-correctness-only"],
 
-    // ── Off: not applicable to this project ──
     "@typescript-eslint/no-confusing-void-expression": "off",
     "@typescript-eslint/no-deprecated": "off",
     "@typescript-eslint/no-empty-object-type": "off",
@@ -53,14 +50,12 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
 
-    // ── Off: React 19 JSX transform / React patterns ──
     "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": "off",
     "react/no-multi-comp": "off",
     "react/jsx-props-no-spreading": "off",
     "react/jsx-max-depth": "off",
 
-    // ── Off: too opinionated ──
     "sort-imports": "off",
     "sort-keys": "off",
     "no-use-before-define": "off",
@@ -71,7 +66,6 @@
     {
       "files": ["**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts"],
       "rules": {
-        // ── JS rules redundant with TypeScript ──
         "constructor-super": "off",
         "getter-return": "off",
         "no-class-assign": "off",
@@ -89,7 +83,6 @@
         "no-unreachable": "off",
         "no-unsafe-negation": "off",
         "no-with": "off",
-        // ── Modern TS enforcement ──
         "no-var": "error",
         "prefer-const": "error",
         "prefer-rest-params": "error",
