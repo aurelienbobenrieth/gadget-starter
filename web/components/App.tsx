@@ -30,7 +30,7 @@ function Error404() {
     if (appURL && location.pathname === new URL(appURL).pathname) {
       navigate("/", { replace: true });
     }
-  }, [location.pathname]);
+  }, [location.pathname, navigate]);
 
   return <div>404 not found</div>;
 }
@@ -41,15 +41,11 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<IndexPage />} />
         <Route path="*" element={<Error404 />} />
-      </Route>
-    )
+      </Route>,
+    ),
   );
 
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 function Layout() {
@@ -65,16 +61,16 @@ function Layout() {
 }
 
 function AuthenticatedApp() {
-  // we use `isAuthenticated` to render pages once the OAuth flow is complete!
+  // We use `isAuthenticated` to render pages once the OAuth flow is complete!
   const { isAuthenticated, loading } = useGadget();
   if (loading) {
     return (
       <div
         style={{
-          display: "flex",
-          justifyContent: "center",
           alignItems: "center",
+          display: "flex",
           height: "100%",
+          justifyContent: "center",
           width: "100%",
         }}
       >
@@ -109,9 +105,7 @@ function UnauthenticatedApp() {
           <Box paddingBlockStart="200">
             <Text variant="bodyLg" as="p">
               Edit this page:{" "}
-              <a
-                href={`/edit/${process.env.GADGET_PUBLIC_APP_ENV}/files/web/components/App.tsx`}
-              >
+              <a href={`/edit/${process.env.GADGET_PUBLIC_APP_ENV}/files/web/components/App.tsx`}>
                 web/components/App.tsx
               </a>
             </Text>

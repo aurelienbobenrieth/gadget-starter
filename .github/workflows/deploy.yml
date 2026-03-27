@@ -1,0 +1,72 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+
+env:
+  APP: ${{ vars.GADGET_APP }}
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  # On merge to main → push to Gadget staging
+  push-staging:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache ggt CLI
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ggt-${{ runner.os }}
+
+      - name: Install ggt
+        run: npm install -g @gadgetinc/ggt
+
+      - name: Push to staging (create if missing)
+        run: |
+          push_to_staging() {
+            ggt push \
+              --app="$APP" \
+              --env=staging \
+              --force \
+              --allow-unknown-directory
+          }
+
+          if ! push_to_staging 2>&1; then
+            echo "Push failed — creating staging environment..."
+            ggt env create staging --app="$APP"
+            push_to_staging
+          fi
+        env:
+          GGT_TOKEN: ${{ secrets.GGT_TOKEN }}
+
+  # On GitHub Release → deploy staging to production
+  deploy-production:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache ggt CLI
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ggt-${{ runner.os }}
+
+      - name: Install ggt
+        run: npm install -g @gadgetinc/ggt
+
+      - name: Deploy staging to production
+        run: |
+          ggt deploy \
+            --app="$APP" \
+            --env=staging \
+            --force \
+            --allow-unknown-directory
+        env:
+          GGT_TOKEN: ${{ secrets.GGT_TOKEN }}

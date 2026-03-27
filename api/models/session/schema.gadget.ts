@@ -4,8 +4,6 @@ import type { GadgetModel } from "gadget-server";
 // For more information on how to update this file http://docs.gadget.dev
 
 export const schema: GadgetModel = {
-  type: "gadget/model-schema/v2",
-  storageKey: "Q5DrszvVyyaM",
   fields: {
     roles: {
       type: "roleList",
@@ -13,4 +11,6 @@ export const schema: GadgetModel = {
       storageKey: "GbzKlB4SEs1J",
     },
   },
+  storageKey: "Q5DrszvVyyaM",
+  type: "gadget/model-schema/v2",
 };

@@ -1,0 +1,63 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+# Serialize access to the shared Gadget CI environment
+concurrency:
+  group: gadget-ci-env
+  cancel-in-progress: false
+
+env:
+  APP: ${{ vars.GADGET_APP }}
+  CI_ENV: ci
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: voidzero-dev/setup-vp@v1
+        with:
+          node-version: "22"
+          cache: true
+
+      - name: Cache ggt CLI
+        id: ggt-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ggt-${{ runner.os }}
+
+      - name: Install ggt
+        run: npm install -g @gadgetinc/ggt
+
+      - name: Push to CI env (create if missing)
+        run: |
+          push_to_ci() {
+            ggt push \
+              --app="$APP" \
+              --env="$CI_ENV" \
+              --force \
+              --allow-unknown-directory
+          }
+
+          if ! push_to_ci 2>&1; then
+            echo "Push failed — creating CI environment..."
+            ggt env create "$CI_ENV" --app="$APP"
+            push_to_ci
+          fi
+        env:
+          GGT_TOKEN: ${{ secrets.GGT_TOKEN }}
+
+      - name: Pull generated types
+        run: ggt pull --app="$APP" --env="$CI_ENV" --force
+        env:
+          GGT_TOKEN: ${{ secrets.GGT_TOKEN }}
+
+      - run: vp install
+      - run: vp check
+      - run: vp test --passWithNoTests
