@@ -8,6 +8,7 @@ on:
 
 env:
   APP: ${{ vars.GADGET_APP }}
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   # On merge to main → push to Gadget staging

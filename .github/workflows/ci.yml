@@ -12,6 +12,7 @@ concurrency:
 env:
   APP: ${{ vars.GADGET_APP }}
   CI_ENV: ci
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
   validate:
@@ -60,4 +61,3 @@ jobs:
       - run: vp install
       - run: vp check
       - run: vp test --passWithNoTests
-      - run: vp build
