@@ -1,5 +1,5 @@
 // From https://polaris.shopify.com/components/utilities/app-provider#using-linkcomponent
-import { Link } from "react-router";
+import { Link } from "@tanstack/react-router";
 import type { AppProviderProps } from "@shopify/polaris";
 import type { ComponentProps } from "react";
 
@@ -21,8 +21,13 @@ export function AdaptorLink({
     );
   }
 
+  // Only pass props that are valid for an anchor element to TanStack Router's Link.
+  // Polaris may pass extra props (e.g. `preload` as string) that conflict with
+  // TanStack Router's stricter types, so we extract only what we need.
+  const { preload: _preload, ...anchorProps } = rest as Record<string, unknown>;
+
   return (
-    <Link to={url} {...rest}>
+    <Link to={url} {...anchorProps}>
       {children}
     </Link>
   );
