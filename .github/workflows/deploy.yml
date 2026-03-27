@@ -26,13 +26,21 @@ jobs:
       - name: Install ggt
         run: npm install -g @gadgetinc/ggt
 
-      - name: Push to staging
+      - name: Push to staging (create if missing)
         run: |
-          ggt push \
-            --app="$APP" \
-            --env=staging \
-            --force \
-            --allow-unknown-directory
+          push_to_staging() {
+            ggt push \
+              --app="$APP" \
+              --env=staging \
+              --force \
+              --allow-unknown-directory
+          }
+
+          if ! push_to_staging 2>&1; then
+            echo "Push failed — creating staging environment..."
+            ggt env create staging --app="$APP"
+            push_to_staging
+          fi
         env:
           GGT_TOKEN: ${{ secrets.GGT_TOKEN }}
 

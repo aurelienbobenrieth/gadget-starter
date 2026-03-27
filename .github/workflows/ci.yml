@@ -45,8 +45,8 @@ jobs:
           }
 
           if ! push_to_ci 2>&1; then
-            echo "Push failed — creating CI environment from staging..."
-            ggt env create "$CI_ENV" --app="$APP" --from staging
+            echo "Push failed — creating CI environment..."
+            ggt env create "$CI_ENV" --app="$APP"
             push_to_ci
           fi
         env:
