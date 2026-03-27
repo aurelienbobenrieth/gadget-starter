@@ -17,6 +17,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Cache ggt CLI
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ggt-${{ runner.os }}
+
       - name: Install ggt
         run: npm install -g @gadgetinc/ggt
 
@@ -36,6 +42,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Cache ggt CLI
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: ggt-${{ runner.os }}
 
       - name: Install ggt
         run: npm install -g @gadgetinc/ggt
