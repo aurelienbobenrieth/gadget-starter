@@ -1,0 +1,51 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  release:
+    types: [published]
+
+env:
+  APP: ${{ vars.GADGET_APP }}
+
+jobs:
+  # On merge to main → push to Gadget staging
+  push-staging:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ggt
+        run: npm install -g @gadgetinc/ggt
+
+      - name: Push to staging
+        run: |
+          ggt push \
+            --app="$APP" \
+            --env=staging \
+            --force \
+            --allow-unknown-directory
+        env:
+          GGT_TOKEN: ${{ secrets.GGT_TOKEN }}
+
+  # On GitHub Release → deploy staging to production
+  deploy-production:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install ggt
+        run: npm install -g @gadgetinc/ggt
+
+      - name: Deploy staging to production
+        run: |
+          ggt deploy \
+            --app="$APP" \
+            --env=staging \
+            --force \
+            --allow-unknown-directory
+        env:
+          GGT_TOKEN: ${{ secrets.GGT_TOKEN }}
