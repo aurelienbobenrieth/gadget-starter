@@ -17,6 +17,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Gadget App" },
+      { name: "shopify-api-key", content: process.env.GADGET_PUBLIC_SHOPIFY_API_KEY! },
     ],
     links: [
       { rel: "stylesheet", href: "https://assets.gadget.dev/assets/reset.min.css" },
@@ -28,7 +29,10 @@ export const Route = createRootRoute({
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@450;550;650;700&display=swap",
       },
     ],
-    scripts: [{ src: "https://assets.gadget.dev/assets/web-performance.min.js", defer: true }],
+    scripts: [
+      { src: "https://assets.gadget.dev/assets/web-performance.min.js", defer: true },
+      { src: "https://cdn.shopify.com/shopifycloud/polaris.js" },
+    ],
   }),
   component: RootComponent,
 });

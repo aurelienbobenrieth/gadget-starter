@@ -17,5 +17,11 @@ function Error404() {
     }
   }, [location.pathname, navigate]);
 
-  return <div>404 not found</div>;
+  return (
+    <s-page heading="Page not found">
+      <s-section>
+        <s-paragraph>404 — The page you&apos;re looking for doesn&apos;t exist.</s-paragraph>
+      </s-section>
+    </s-page>
+  );
 }

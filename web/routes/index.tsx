@@ -58,7 +58,7 @@ function UnauthenticatedLanding() {
   };
 
   return (
-    <div style={styles.wrapper}>
+    <s-stack alignItems="center" justifyContent="center" style={{ minHeight: "100vh" }}>
       <LoginCard
         shopDomain={shopDomain}
         error={error}
@@ -70,7 +70,7 @@ function UnauthenticatedLanding() {
         }}
         onSubmit={handleSubmit}
       />
-    </div>
+    </s-stack>
   );
 }
 
@@ -83,95 +83,47 @@ interface LoginCardProps {
 
 function LoginCard({ shopDomain, error, onDomainChange, onSubmit }: LoginCardProps) {
   return (
-    <div style={styles.card}>
-      <img
-        src="https://assets.gadget.dev/assets/icon.svg"
-        alt="App icon"
-        style={{ width: "48px", height: "48px", marginBottom: "24px" }}
-      />
-      <h1 style={{ fontSize: "20px", fontWeight: 600, margin: "0 0 8px" }}>
-        Access this app from Shopify
-      </h1>
-      <p style={{ fontSize: "14px", color: "#616161", margin: "0 0 24px" }}>
-        Enter your store domain to get started
-      </p>
-      <DomainForm
-        shopDomain={shopDomain}
-        error={error}
-        onDomainChange={onDomainChange}
-        onSubmit={onSubmit}
-      />
-    </div>
+    <s-box
+      padding="large"
+      background="base"
+      borderRadius="base"
+      border="base"
+      maxInlineSize="440px"
+      inlineSize="100%"
+    >
+      <s-stack gap="small-200" alignItems="center">
+        <s-heading>Access this app from Shopify</s-heading>
+        <s-paragraph color="subdued">Enter your store domain to get started</s-paragraph>
+      </s-stack>
+      <s-box paddingBlockStart="base">
+        <DomainForm
+          shopDomain={shopDomain}
+          error={error}
+          onDomainChange={onDomainChange}
+          onSubmit={onSubmit}
+        />
+      </s-box>
+    </s-box>
   );
 }
 
 function DomainForm({ shopDomain, error, onDomainChange, onSubmit }: LoginCardProps) {
   return (
     <form onSubmit={onSubmit}>
-      <label
-        htmlFor="shop-domain"
-        style={{ display: "block", fontSize: "14px", fontWeight: 500, marginBottom: "4px" }}
-      >
-        Store domain
-      </label>
-      <input
-        id="shop-domain"
-        type="text"
-        placeholder="your-store.myshopify.com"
-        value={shopDomain}
-        onChange={(ev) => {
-          onDomainChange(ev.target.value);
-        }}
-        style={{
-          width: "100%",
-          padding: "8px 12px",
-          fontSize: "14px",
-          border: `1px solid ${error ? "#d72c0d" : "#c9cccf"}`,
-          borderRadius: "8px",
-          outline: "none",
-          boxSizing: "border-box" as const,
-        }}
-      />
-      {error && (
-        <p style={{ fontSize: "12px", color: "#d72c0d", margin: "4px 0 0" }}>
-          {ERROR_MESSAGES[error]}
-        </p>
-      )}
-      <button type="submit" style={styles.button}>
-        Sign in
-      </button>
+      <s-stack gap="small-200">
+        <s-text-field
+          label="Store domain"
+          value={shopDomain}
+          placeholder="your-store.myshopify.com"
+          onInput={(ev: Event) => {
+            onDomainChange((ev.target as HTMLInputElement).value);
+          }}
+        />
+        {error && <s-text color="subdued">{ERROR_MESSAGES[error]}</s-text>}
+        <s-button variant="primary" onClick={onSubmit}>
+          Sign in
+        </s-button>
+      </s-stack>
     </form>
   );
 }
-
-const styles = {
-  wrapper: {
-    display: "flex",
-    flexDirection: "column" as const,
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "100vh",
-    backgroundColor: "#f6f6f7",
-    fontFamily: "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-  },
-  card: {
-    backgroundColor: "white",
-    borderRadius: "12px",
-    padding: "40px",
-    maxWidth: "440px",
-    width: "100%",
-    boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
-  },
-  button: {
-    width: "100%",
-    marginTop: "16px",
-    padding: "10px",
-    fontSize: "14px",
-    fontWeight: 600,
-    color: "white",
-    backgroundColor: "#303030",
-    border: "none",
-    borderRadius: "8px",
-    cursor: "pointer" as const,
-  },
-};

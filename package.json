@@ -14,8 +14,6 @@
     "@gadgetinc/react-shopify-app-bridge": "^0.21.3",
     "@local/gadget-client": "link:.gadget/client",
     "@shopify/app-bridge-react": "4.2.3",
-    "@shopify/polaris": "^13.8.0",
-    "@shopify/polaris-icons": "^9.3.0",
     "@tanstack/react-start": "^1.167.12",
     "gadget-server": "link:.gadget/server",
     "react": "^19.1.2",
