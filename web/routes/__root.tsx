@@ -1,6 +1,8 @@
 /// <reference types="vite/client" />
 import { type ReactNode, lazy, Suspense } from "react";
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
+import { getLocale } from "../paraglide/runtime.js";
+import * as m from "../paraglide/messages.js";
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
@@ -16,7 +18,7 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Gadget App" },
+      { title: m.common_meta_app_title() },
       { name: "shopify-api-key", content: process.env.GADGET_PUBLIC_SHOPIFY_API_KEY! },
     ],
     links: [
@@ -50,7 +52,7 @@ function RootComponent() {
 
 function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en">
+    <html lang={getLocale()}>
       <head>
         <HeadContent />
       </head>

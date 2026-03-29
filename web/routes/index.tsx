@@ -1,5 +1,6 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useState } from "react";
+import * as m from "../paraglide/messages.js";
 
 export const Route = createFileRoute("/")({
   beforeLoad: ({ location }) => {
@@ -35,8 +36,8 @@ function validateShopifyDomain(input: string) {
 }
 
 const ERROR_MESSAGES = {
-  empty: "Please enter your Shopify store domain",
-  invalid: "Please enter a valid Shopify domain (e.g., your-store.myshopify.com)",
+  empty: () => m.landing_errors_empty_domain(),
+  invalid: () => m.landing_errors_invalid_domain(),
 };
 
 function UnauthenticatedLanding() {
@@ -92,8 +93,8 @@ function LoginCard({ shopDomain, error, onDomainChange, onSubmit }: LoginCardPro
       inlineSize="100%"
     >
       <s-stack gap="small-200" alignItems="center">
-        <s-heading>Access this app from Shopify</s-heading>
-        <s-paragraph color="subdued">Enter your store domain to get started</s-paragraph>
+        <s-heading>{m.landing_heading()}</s-heading>
+        <s-paragraph color="subdued">{m.landing_subheading()}</s-paragraph>
       </s-stack>
       <s-box paddingBlockStart="base">
         <DomainForm
@@ -112,16 +113,16 @@ function DomainForm({ shopDomain, error, onDomainChange, onSubmit }: LoginCardPr
     <form onSubmit={onSubmit}>
       <s-stack gap="small-200">
         <s-text-field
-          label="Store domain"
+          label={m.common_labels_store_domain()}
           value={shopDomain}
-          placeholder="your-store.myshopify.com"
+          placeholder={m.landing_placeholder_store_domain()}
           onInput={(ev: Event) => {
             onDomainChange((ev.target as HTMLInputElement).value);
           }}
         />
-        {error && <s-text color="subdued">{ERROR_MESSAGES[error]}</s-text>}
+        {error && <s-text color="subdued">{ERROR_MESSAGES[error]()}</s-text>}
         <s-button variant="primary" onClick={onSubmit}>
-          Sign in
+          {m.common_actions_sign_in()}
         </s-button>
       </s-stack>
     </form>

@@ -1,5 +1,6 @@
 import { createFileRoute, useLocation, useNavigate } from "@tanstack/react-router";
 import { useEffect } from "react";
+import * as m from "../../paraglide/messages.js";
 
 export const Route = createFileRoute("/app/$")({
   component: Error404,
@@ -18,9 +19,9 @@ function Error404() {
   }, [location.pathname, navigate]);
 
   return (
-    <s-page heading="Page not found">
+    <s-page heading={m.common_errors_page_not_found()}>
       <s-section>
-        <s-paragraph>404 — The page you&apos;re looking for doesn&apos;t exist.</s-paragraph>
+        <s-paragraph>{m.common_errors_not_found_description()}</s-paragraph>
       </s-section>
     </s-page>
   );

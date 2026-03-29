@@ -1,0 +1,33 @@
+{
+  "common_actions_sign_in": "Sign in",
+  "common_actions_loading": "Loading",
+  "common_labels_store_domain": "Store domain",
+  "common_errors_page_not_found": "Page not found",
+  "common_errors_not_found_description": "404 — The page you're looking for doesn't exist.",
+  "common_meta_app_title": "Gadget App",
+
+  "landing_heading": "Access this app from Shopify",
+  "landing_subheading": "Enter your store domain to get started",
+  "landing_placeholder_store_domain": "your-store.myshopify.com",
+  "landing_errors_empty_domain": "Please enter your Shopify store domain",
+  "landing_errors_invalid_domain": "Please enter a valid Shopify domain (e.g., your-store.myshopify.com)",
+
+  "app_heading": "App",
+  "app_edit_page_hint": "Edit this page's code directly:",
+
+  "shop_section_heading": "Shop Information",
+  "shop_table_name": "Name",
+  "shop_table_country": "Country",
+  "shop_table_currency": "Currency",
+  "shop_table_customer_email": "Customer Email",
+  "shop_loading": "Loading shops",
+  "shop_error_loading": "Error loading shop data: {errorMessage}",
+  "shop_data_source_hint": "Shop records fetched from:",
+  "shop_data_source_link": "api/models/shopifyShop/data",
+
+  "auth_unauthenticated_heading": "Unauthenticated",
+  "auth_must_view_in_admin": "App must be viewed in the Shopify Admin",
+  "auth_edit_page_hint": "Edit this page:",
+
+  "nav_shop_information": "Shop Information"
+}

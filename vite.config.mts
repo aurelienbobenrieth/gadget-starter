@@ -3,6 +3,7 @@ import { gadget } from "gadget-server/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import { nitro } from "nitro/vite";
 import react from "@vitejs/plugin-react";
+import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 export default defineConfig({
   staged: {
@@ -20,5 +21,12 @@ export default defineConfig({
     }),
     nitro(),
     react(),
+    paraglideVitePlugin({
+      project: "./project.inlang",
+      outdir: "./web/paraglide",
+      outputStructure: "message-modules",
+      cookieName: "PARAGLIDE_LOCALE",
+      strategy: ["cookie", "preferredLanguage", "baseLocale"],
+    }),
   ],
 });

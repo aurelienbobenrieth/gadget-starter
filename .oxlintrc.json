@@ -56,6 +56,8 @@
     "react/jsx-props-no-spreading": "off",
     "react/jsx-max-depth": "off",
 
+    "id-length": ["error", { "exceptions": ["m"] }],
+
     "sort-imports": "off",
     "sort-keys": "off",
     "no-use-before-define": "off",
