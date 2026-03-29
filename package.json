@@ -12,6 +12,7 @@
   "dependencies": {
     "@gadgetinc/react": "^0.25.1",
     "@gadgetinc/react-shopify-app-bridge": "^0.21.3",
+    "@inlang/paraglide-js": "^2.15.1",
     "@local/gadget-client": "link:.gadget/client",
     "@shopify/app-bridge-react": "4.2.3",
     "@tanstack/react-start": "^1.167.12",

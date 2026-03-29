@@ -18,6 +18,9 @@
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "baseUrl": ".",
+    "paths": {
+      "@paraglide/*": ["./web/paraglide/*"]
+    },
     "types": ["@shopify/app-bridge-types"]
   },
   "exclude": ["node_modules", ".gadget"]

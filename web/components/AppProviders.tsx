@@ -6,6 +6,7 @@ import {
 } from "@gadgetinc/react-shopify-app-bridge";
 import { NavMenu } from "@shopify/app-bridge-react";
 import { api } from "../api";
+import * as m from "../paraglide/messages.js";
 
 interface AppProvidersProps {
   location: { pathname: string; search: string };
@@ -34,7 +35,7 @@ function AuthenticatedApp() {
         justifyContent="center"
         style={{ height: "100vh", width: "100%" }}
       >
-        <s-spinner accessibilityLabel="Loading" size="large-100" />
+        <s-spinner accessibilityLabel={m.common_actions_loading()} size="large-100" />
       </s-stack>
     );
   }
@@ -47,7 +48,7 @@ function EmbeddedApp() {
     <>
       <Outlet />
       <NavMenu>
-        <Link to="/app">Shop Information</Link>
+        <Link to="/app">{m.nav_shop_information()}</Link>
       </NavMenu>
     </>
   );
@@ -55,12 +56,12 @@ function EmbeddedApp() {
 
 function UnauthenticatedApp() {
   return (
-    <s-page heading="Unauthenticated">
+    <s-page heading={m.auth_unauthenticated_heading()}>
       <s-section>
-        <s-heading>App must be viewed in the Shopify Admin</s-heading>
+        <s-heading>{m.auth_must_view_in_admin()}</s-heading>
         <s-box paddingBlockStart="base">
           <s-paragraph>
-            Edit this page:{" "}
+            {m.auth_edit_page_hint()}{" "}
             <s-link
               href={`/edit/${process.env.GADGET_PUBLIC_APP_ENV}/files/web/routes/app/route.tsx`}
             >

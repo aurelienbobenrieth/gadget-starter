@@ -1,0 +1,33 @@
+{
+  "common_actions_sign_in": "Se connecter",
+  "common_actions_loading": "Chargement",
+  "common_labels_store_domain": "Domaine de la boutique",
+  "common_errors_page_not_found": "Page introuvable",
+  "common_errors_not_found_description": "404 — La page que vous recherchez n'existe pas.",
+  "common_meta_app_title": "Application Gadget",
+
+  "landing_heading": "Accédez à cette application depuis Shopify",
+  "landing_subheading": "Entrez le domaine de votre boutique pour commencer",
+  "landing_placeholder_store_domain": "votre-boutique.myshopify.com",
+  "landing_errors_empty_domain": "Veuillez entrer le domaine de votre boutique Shopify",
+  "landing_errors_invalid_domain": "Veuillez entrer un domaine Shopify valide (ex : votre-boutique.myshopify.com)",
+
+  "app_heading": "Application",
+  "app_edit_page_hint": "Modifiez le code de cette page directement :",
+
+  "shop_section_heading": "Informations de la boutique",
+  "shop_table_name": "Nom",
+  "shop_table_country": "Pays",
+  "shop_table_currency": "Devise",
+  "shop_table_customer_email": "E-mail du client",
+  "shop_loading": "Chargement des boutiques",
+  "shop_error_loading": "Erreur lors du chargement des données : {errorMessage}",
+  "shop_data_source_hint": "Données des boutiques récupérées depuis :",
+  "shop_data_source_link": "api/models/shopifyShop/data",
+
+  "auth_unauthenticated_heading": "Non authentifié",
+  "auth_must_view_in_admin": "L'application doit être consultée dans l'interface Shopify",
+  "auth_edit_page_hint": "Modifier cette page :",
+
+  "nav_shop_information": "Informations de la boutique"
+}

@@ -29,6 +29,7 @@ shopify.app.*.toml
 # ─────────────────────────────────────────────
 .react-router/
 web/routeTree.gen.ts
+web/paraglide/
 
 # ─────────────────────────────────────────────
 #  Environment & Secrets
@@ -44,6 +45,11 @@ web/routeTree.gen.ts
 !.vscode/settings.json
 !.vscode/extensions.json
 .idea/
+
+# ─────────────────────────────────────────────
+#  Claude Code
+# ─────────────────────────────────────────────
+.claude/settings.local.json
 *.swp
 *.swo
 *~
