@@ -2,4 +2,4 @@
 // For your API reference, visit: https://docs.gadget.dev/api/starter
 import { Client } from "@gadget-client/starter";
 
-export const api = new Client({ environment: window.gadgetConfig.environment });
+export const api = new Client();
