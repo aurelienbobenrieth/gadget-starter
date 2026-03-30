@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "ggt dev",
     "build": "NODE_ENV=production vp build",
+    "check": "concurrently -g \"vp check\" \"tsgo --noEmit\"",
+    "check:fix": "vp check --fix && tsgo --noEmit",
+    "typecheck": "tsgo --noEmit",
     "prepare": "vp config"
   },
   "dependencies": {
@@ -21,14 +24,16 @@
     "react-dom": "^19.1.2"
   },
   "devDependencies": {
-    "@shopify/app-bridge-types": "0.4.0",
+    "@oxlint/plugins": "^1.57.0",
+    "@shopify/polaris-types": "^1.0.1",
     "@tanstack/react-router-devtools": "^1.166.11",
     "@types/node": "^22.13.14",
     "@types/react": "^19.1.1",
     "@types/react-dom": "^19.1.1",
+    "@typescript/native-preview": "^7.0.0-dev.20260330.1",
     "@vitejs/plugin-react": "^6.0.1",
+    "concurrently": "^9.2.1",
     "nitro": "^3.0.260311-beta",
-    "typescript": "^5.9.3",
     "vite": "^8.0.3",
     "vite-plus": "latest",
     "vitest": "^4.1.2"
