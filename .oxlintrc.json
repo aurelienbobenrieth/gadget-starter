@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["typescript", "react"],
+  "jsPlugins": ["./oxlint-plugins/local/index.js"],
   "categories": {
     "correctness": "error",
     "suspicious": "error",
@@ -62,7 +63,9 @@
     "sort-keys": "off",
     "no-use-before-define": "off",
     "no-ternary": "off",
-    "func-style": "off"
+    "func-style": "off",
+
+    "local/no-env-outside-configs": "error"
   },
   "overrides": [
     {
