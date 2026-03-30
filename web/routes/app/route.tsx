@@ -1,6 +1,8 @@
-import { createFileRoute, redirect, useLocation } from "@tanstack/react-router";
-import { setLocale, isLocale } from "../../paraglide/runtime.js";
-import AppProviders from "../../components/AppProviders";
+import { createFileRoute, Outlet, redirect, useLocation } from "@tanstack/react-router";
+import { syncShopifyLocale } from "~/integrations/paraglide/sync-shopify-locale";
+import { EmbeddedAppProvider } from "~/integrations/shopify/embedded-app-provider";
+import { AuthGate } from "~/integrations/shopify/auth-gate";
+import { AppNavMenu } from "~/integrations/shopify/app-nav-menu";
 
 export const Route = createFileRoute("/app")({
   beforeLoad: ({ location }) => {
@@ -9,23 +11,29 @@ export const Route = createFileRoute("/app")({
       throw redirect({ to: "/" });
     }
 
-    // Shopify sends the merchant's locale via the `locale` query parameter.
-    // Sync it with Paraglide so all downstream components render in the right language.
-    const shopifyLocale = searchParams.get("locale");
-    if (shopifyLocale) {
-      // Shopify may send full locale tags like "fr-FR" — extract the base language.
-      const [baseLocale] = shopifyLocale.split("-");
-      const normalizedLocale = baseLocale!.toLowerCase();
-      if (isLocale(normalizedLocale)) {
-        setLocale(normalizedLocale, { reload: false });
-      }
-    }
+    syncShopifyLocale(searchParams);
   },
   component: AppWrapper,
 });
 
+/**
+ * Root layout for all `/app/*` routes.
+ *
+ * Composes the Shopify integration layers in order:
+ * 1. EmbeddedAppProvider — establishes the Shopify Admin iframe context
+ * 2. AuthGate — blocks rendering until the merchant session is verified
+ * 3. AppNavMenu — registers sidebar navigation in the Shopify Admin
+ * 4. Outlet — renders the matched child route
+ */
 function AppWrapper() {
   const location = useLocation();
 
-  return <AppProviders location={{ pathname: location.pathname, search: location.searchStr }} />;
+  return (
+    <EmbeddedAppProvider location={{ pathname: location.pathname, search: location.searchStr }}>
+      <AuthGate>
+        <Outlet />
+        <AppNavMenu />
+      </AuthGate>
+    </EmbeddedAppProvider>
+  );
 }

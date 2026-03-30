@@ -1,17 +1,17 @@
 /// <reference types="vite/client" />
 import { type ReactNode, lazy, Suspense } from "react";
 import { createRootRoute, HeadContent, Outlet, Scripts } from "@tanstack/react-router";
-import { getLocale } from "../paraglide/runtime.js";
-import * as m from "../paraglide/messages.js";
+import { env } from "~/configs/env";
+import { getLocale } from "~/integrations/paraglide/generated/runtime.js";
+import * as m from "~/integrations/paraglide/generated/messages.js";
 
-const TanStackRouterDevtools =
-  process.env.NODE_ENV === "production"
-    ? () => null
-    : lazy(() =>
-        import("@tanstack/react-router-devtools").then((res) => ({
-          default: res.TanStackRouterDevtools,
-        })),
-      );
+const TanStackRouterDevtools = env.isProduction
+  ? () => null
+  : lazy(() =>
+      import("@tanstack/react-router-devtools").then((res) => ({
+        default: res.TanStackRouterDevtools,
+      })),
+    );
 
 export const Route = createRootRoute({
   head: () => ({
@@ -19,7 +19,7 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: m.common_meta_app_title() },
-      { name: "shopify-api-key", content: process.env.GADGET_PUBLIC_SHOPIFY_API_KEY! },
+      { name: "shopify-api-key", content: env.shopifyApiKey },
     ],
     links: [
       { rel: "stylesheet", href: "https://assets.gadget.dev/assets/reset.min.css" },

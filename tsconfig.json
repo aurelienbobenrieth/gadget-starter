@@ -17,11 +17,10 @@
     "jsx": "react-jsx",
     "moduleResolution": "Bundler",
     "resolveJsonModule": true,
-    "baseUrl": ".",
     "paths": {
-      "@paraglide/*": ["./web/paraglide/*"]
+      "~/*": ["./web/*"]
     },
-    "types": ["@shopify/app-bridge-types"]
+    "types": ["@shopify/polaris-types"]
   },
-  "exclude": ["node_modules", ".gadget"]
+  "exclude": ["node_modules", ".gadget", "oxlint-plugins"]
 }

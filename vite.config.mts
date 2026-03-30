@@ -1,3 +1,4 @@
+import path from "node:path";
 import { defineConfig } from "vite-plus";
 import { gadget } from "gadget-server/vite";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
@@ -6,6 +7,11 @@ import react from "@vitejs/plugin-react";
 import { paraglideVitePlugin } from "@inlang/paraglide-js";
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      "~": path.resolve(import.meta.dirname, "web"),
+    },
+  },
   staged: {
     "*": "vp check --fix",
   },
@@ -23,7 +29,7 @@ export default defineConfig({
     react(),
     paraglideVitePlugin({
       project: "./project.inlang",
-      outdir: "./web/paraglide",
+      outdir: "./web/integrations/paraglide/generated",
       outputStructure: "message-modules",
       cookieName: "PARAGLIDE_LOCALE",
       strategy: ["cookie", "preferredLanguage", "baseLocale"],

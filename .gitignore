@@ -8,6 +8,7 @@ node_modules/
 # ─────────────────────────────────────────────
 dist/
 build/
+.output/
 *.tsbuildinfo
 
 # ─────────────────────────────────────────────
@@ -29,7 +30,7 @@ shopify.app.*.toml
 # ─────────────────────────────────────────────
 .react-router/
 web/routeTree.gen.ts
-web/paraglide/
+web/integrations/paraglide/generated/
 
 # ─────────────────────────────────────────────
 #  Environment & Secrets

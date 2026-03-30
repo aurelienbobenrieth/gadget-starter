@@ -1,28 +1,6 @@
-import { createFileRoute, useLocation, useNavigate } from "@tanstack/react-router";
-import { useEffect } from "react";
-import * as m from "../../paraglide/messages.js";
+import { createFileRoute } from "@tanstack/react-router";
+import { NotFoundPage } from "~/features/error/not-found-page";
 
 export const Route = createFileRoute("/app/$")({
-  component: Error404,
+  component: NotFoundPage,
 });
-
-function Error404() {
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  useEffect(() => {
-    const appURL = process.env.GADGET_PUBLIC_SHOPIFY_APP_URL;
-
-    if (appURL && location.pathname === new URL(appURL).pathname) {
-      navigate({ to: "/app", replace: true });
-    }
-  }, [location.pathname, navigate]);
-
-  return (
-    <s-page heading={m.common_errors_page_not_found()}>
-      <s-section>
-        <s-paragraph>{m.common_errors_not_found_description()}</s-paragraph>
-      </s-section>
-    </s-page>
-  );
-}
